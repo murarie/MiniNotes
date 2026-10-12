@@ -1,16 +1,31 @@
-body{
+body {
     font-family: Arial, sans-serif;
     max-width: 500px;
     margin: 50px auto;
     padding: 20px;
+    background-color: #f4f4f4;
+}
 
+h1 {
+    text-align: center;
 }
 
 input {
-    padding: 8px;
+    padding: 10px;
+    width: 65%;
 }
 
 button {
-    padding: 8px 12px;
+    padding: 10px 12px;
     cursor: pointer;
+}
+
+li {
+    margin-top: 12px;
+    padding: 10px;
+    background-color: white;
+}
+
+li button {
+    margin-left: 10px;
 }
