@@ -2,13 +2,11 @@ const express = require("express");
 const db = require("./db");
 
 const app =express();
+app.use(express.static("public"));
 const PORT = 3000;
 
 app.use(express.json());
 
-app.get("/", function (req, res) {
-    res.send("Mini Notes Backend is working!");
-});
 
 app.get("/notes", function (req, res) {
     db.query("SELECT * FROM notes ORDER BY id DESC", function (err, results) {
@@ -40,6 +38,26 @@ app.post("/notes", function (req, res) {
                 id: result.insertId,
                 content: content.trim()
             });
+        }
+    );
+});
+
+app.delete("/notes/:id", function (req, res) {
+    const id = req.params.id;
+
+    db.query(
+        "DELETE FROM notes WHERE id = ?",
+        [id],
+        function (err, result) {
+            if (err) {
+                return res.status(500).json({ error: "Failed to delete note" });
+            }
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({ error: "Note not found" });
+            }
+
+            res.json({ message: "Note deleted successfully" });
         }
     );
 });
